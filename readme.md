@@ -14,6 +14,66 @@ yarn global add wallet-generate
 npm add -g wallet-generate
 ```
 
+## 撰写配置文件
+
+例如我们生成一个菜单实体, 建立一个`Meni.json`的文件.
+
+例子:
+
+```json
+{
+    "$schema": "https://raw.githubusercontent.com/xueyou2000/wallet-generate/master/schema.json",
+    "server-name": "boss",
+    "entity": {
+        "name": "Menu",
+        "description": "系统菜单",
+        "columns": [
+            {
+                "name": "name",
+                "type": "String",
+                "desc": "菜单名称",
+                "summary": "主语言(中文)名称"
+            },
+            {
+                "name": "path",
+                "type": "String",
+                "desc": "菜单路径",
+                "length": 120
+            },
+            {
+                "name": "label",
+                "type": "String",
+                "desc": "菜单标签",
+                "summary": "用于根据标签找到对应国际化名称",
+                "length": 120
+            },
+            {
+                "name": "displayOrder",
+                "type": "Long",
+                "desc": "菜单顺序"
+            },
+            {
+                "name": "levels",
+                "type": "Long",
+                "desc": "菜单级别",
+                "summary": "1=主菜单, 2=子菜单"
+            },
+            {
+                "name": "parentId",
+                "type": "Long",
+                "desc": "父菜单id"
+            },
+            {
+                "name": "status",
+                "type": "com.yl.wallet.common.enums.EnableOrUnenable",
+                "desc": "状态",
+                "isEnum": true
+            }
+        ]
+    }
+}
+```
+
 ## 生成单个实体
 
 > requirement: 请先请按照`entitys`中`menu.json`的规范, 撰写需要生成的实体配置文件.

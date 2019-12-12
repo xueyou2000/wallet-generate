@@ -1,5 +1,5 @@
 {
-    "$schema": "../schema.json",
+    "$schema": "https://raw.githubusercontent.com/xueyou2000/wallet-generate/master/schema.json",
     "server-name": "boss",
     "entity": {
         "name": "Menu",
