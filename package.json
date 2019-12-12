@@ -1,0 +1,38 @@
+{
+    "name": "wallet-generate",
+    "version": "1.0.0",
+    "description": "wallet代码生成工具",
+    "main": "bin/cli.js",
+    "bin": {
+        "wallet-generate": "./bin/cli.js"
+    },
+    "author": "XueYou",
+    "license": "MIT",
+    "files": [
+        "bin",
+        "entitys",
+        "src",
+        "template",
+        "schema.json"
+    ],
+    "engines": {
+        "node": ">=10"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com:xueyou2000/wallet-generate.git"
+    },
+    "dependencies": {
+        "chalk": "^3.0.0",
+        "commander": "^4.0.1",
+        "glob": "^7.1.6",
+        "lodash": "^4.17.15",
+        "ora": "^4.0.3",
+        "ts-node": "^8.5.4",
+        "tslib": "^1.10.0",
+        "typescript": "^3.7.3"
+    },
+    "devDependencies": {
+        "@types/node": "^12.12.17"
+    }
+}

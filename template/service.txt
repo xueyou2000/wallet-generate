@@ -1,0 +1,33 @@
+package com.yl.wallet.{{ServerName}}.service;
+
+import com.yl.wallet.{{ServerName}}.dto.{{EntityName}}Dto;
+import com.yl.wallet.{{ServerName}}.entity.{{EntityName}};
+import com.yl.wallet.common.exception.BusinessException;
+import com.yl.wallet.common.pojo.MiniPage;
+import org.springframework.data.domain.Pageable;
+
+
+public interface {{EntityName}}Service {
+
+    /**
+     * 新增{{EntityDesc}}
+     * @param {{EntityVariableName}} {{EntityDesc}}
+     * @return 新增的{{EntityDesc}}
+     */
+    {{EntityName}} add({{EntityName}} {{EntityVariableName}});
+
+    /**
+     * 修改{{EntityDesc}}
+     * @param {{EntityVariableName}} {{EntityDesc}}
+     */
+    void update({{EntityName}} {{EntityVariableName}}) throws BusinessException;
+
+    /**
+     * 分页查询{{EntityDesc}}
+     * @param pageable 分页信息
+     * @param queryDto {{EntityDesc}}信息
+     * @return {{EntityDesc}}分页集合
+     */
+    MiniPage<{{EntityName}}> findByProperties(Pageable pageable, {{EntityName}}Dto queryDto) throws BusinessException;
+
+}

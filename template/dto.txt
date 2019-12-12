@@ -1,0 +1,29 @@
+package com.yl.wallet.{{ServerName}}.dto;
+
+import com.yl.wallet.{{ServerName}}.entity.{{EntityName}};
+import com.yl.wallet.common.dto.query.QueryBaseDto;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+/**
+ * {{EntityDesc}}
+ */
+@Data
+@ApiModel(value = "{{EntityName}}Dto", description = "菜单查询")
+public class {{EntityName}}Dto {
+
+    /**
+     * 通用查询对象
+     */
+    @ApiModelProperty(value = "通用查询对象")
+    private QueryBaseDto queryBaseDto = new QueryBaseDto();
+
+    /**
+     * 菜单信息
+     */
+    @ApiModelProperty(value = "菜单信息")
+    private {{EntityName}} {{EntityVariableName}} = new {{EntityName}}();
+
+
+}

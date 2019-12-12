@@ -1,0 +1,8 @@
+package com.yl.wallet.{{ServerName}}.repository;
+
+import com.yl.wallet.{{ServerName}}.entity.{{EntityName}};
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+
+public interface {{EntityName}}Repository extends JpaRepository<{{EntityName}}, Long>, QuerydslPredicateExecutor<{{EntityName}}> {
+}

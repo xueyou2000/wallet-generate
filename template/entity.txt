@@ -1,0 +1,19 @@
+package com.yl.wallet.{{ServerName}}.entity;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.Date;
+
+/**
+ * {{EntityDesc}}
+ */
+@Entity
+@Table(name = "{{TableName}}")
+@Data
+@ApiModel(value = "{{EntityName}}", description = "{{EntityDesc}}")
+public class {{EntityName}} { {{EntityColumns}}
+
+}

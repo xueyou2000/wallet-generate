@@ -1,0 +1,81 @@
+package com.yl.wallet.{{ServerName}}.service.impl;
+
+import com.querydsl.core.types.ExpressionUtils;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.yl.wallet.base.utils.QueryUtils;
+import com.yl.wallet.{{ServerName}}.dto.{{EntityName}}Dto;
+import com.yl.wallet.{{ServerName}}.entity.{{EntityName}};
+import com.yl.wallet.{{ServerName}}.entity.Q{{EntityName}};
+import com.yl.wallet.{{ServerName}}.repository.{{EntityName}}Repository;
+import com.yl.wallet.{{ServerName}}.service.{{EntityName}}Service;
+import com.yl.wallet.common.dto.query.QueryBaseDto;
+import com.yl.wallet.common.enums.ExceptionEnum;
+import com.yl.wallet.common.enums.QueryType;
+import com.yl.wallet.common.exception.BusinessException;
+import com.yl.wallet.common.pojo.MiniPage;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.Date;
+
+@Service("{{EntityName}}Service")
+@Transactional
+public class {{EntityName}}ServiceImpl implements {{EntityName}}Service {
+
+    @Resource
+    {{EntityName}}Repository {{EntityVariableName}}Repository;
+
+    @Resource
+    JPAQueryFactory jpaQueryFactory;
+
+    /**
+     * 新增{{EntityDesc}}
+     *
+     * @param {{EntityVariableName}} {{EntityDesc}}
+     * @return 新增的{{EntityDesc}}
+     */
+    @Override
+    public {{EntityName}} add({{EntityName}} {{EntityVariableName}}) {
+        {{EntityVariableName}}.setCreateTime(new Date());
+        return {{EntityVariableName}}Repository.save({{EntityVariableName}});
+    }
+
+    /**
+     * 修改{{EntityDesc}}
+     *
+     * @param {{EntityVariableName}} {{EntityDesc}}
+     */
+    @Override
+    public void update({{EntityName}} {{EntityVariableName}}) throws BusinessException {
+        if (!{{EntityVariableName}}Repository.existsById({{EntityVariableName}}.getId())) {
+            throw new BusinessException(ExceptionEnum.DATA_NOT_FOUND);
+        }
+
+        Q{{EntityName}} q{{EntityName}} = Q{{EntityName}}.{{EntityVariableName}};
+        jpaQueryFactory
+                .update(q{{EntityName}})
+                .where(q{{EntityName}}.id.eq({{EntityVariableName}}.getId()))
+{{SetColumns}}
+                .execute();
+    }
+
+    /**
+     * 分页查询{{EntityDesc}}
+     *
+     * @param pageable 分页信息
+     * @param queryDto {{EntityDesc}}信息
+     * @return {{EntityDesc}}分页集合
+     */
+    @Override
+    public MiniPage<{{EntityName}}> findByProperties(Pageable pageable, {{EntityName}}Dto queryDto) throws BusinessException {
+        Q{{EntityName}} q{{EntityName}} = Q{{EntityName}}.{{EntityVariableName}};
+        {{EntityName}} {{EntityVariableName}} = queryDto.get{{EntityName}}();
+        QueryBaseDto queryBaseDto = queryDto.getQueryBaseDto();
+
+        Predicate predicate = QueryUtils.createPredicate(queryBaseDto, {{EntityVariableName}}, q{{EntityName}});
+        return MiniPage.fromPage({{EntityVariableName}}Repository.findAll(predicate, pageable));
+    }
+}

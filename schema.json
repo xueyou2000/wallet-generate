@@ -1,0 +1,79 @@
+{
+    "title": "wallet代码生成配置文件",
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "required": ["server-name", "entity"],
+    "properties": {
+        "server-name": {
+            "title": "服务名称",
+            "description": "服务名称, 比如boss服务, 这将影响生成的包名",
+            "type": "string"
+        },
+        "entity": {
+            "title": "实体配置",
+            "description": "实体信息配置",
+            "type": "object",
+            "required": ["name", "description", "columns"],
+            "properties": {
+                "name": {
+                    "title": "实体名称",
+                    "description": "驼峰名称的实体名称, 比如OperatorInfo",
+                    "type": "string"
+                },
+                "description": {
+                    "title": "实体说明",
+                    "description": "实体注释",
+                    "type": "string"
+                },
+                "columns": {
+                    "title": "实体字段配置",
+                    "description": "实体字段配置",
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["name", "type", "desc"],
+                        "properties": {
+                            "name": {
+                                "title": "字段名称",
+                                "description": "实体字段的名称, 应该是开头小写的驼峰形式, 如: createTime",
+                                "type": "string"
+                            },
+                            "type": {
+                                "title": "字段类型",
+                                "description": "实体字段的类型, 可以是内置类型,如: String, 也可以是全名, 如: com.yl.wallet.common.enums.EnableOrUnenable",
+                                "type": "string"
+                            },
+                            "desc": {
+                                "title": "字段中文",
+                                "description": "实体字段的中文名称, 用于注释和swagger的注释",
+                                "type": "string"
+                            },
+                            "isEnum": {
+                                "title": "是否枚举类型",
+                                "description": "实体字段是否是枚举类型, 枚举类型会加上@Enumerated(EnumType.STRING)注解",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "nullable": {
+                                "title": "是否可为空",
+                                "description": "实体字段是否可以为空",
+                                "type": "boolean",
+                                "default": false
+                            },
+                            "length": {
+                                "title": "数据库长度",
+                                "description": "定义实体字段数据库的长度",
+                                "type": "number",
+                                "default": 60
+                            },
+                            "summary": {
+                                "title": "字段说明",
+                                "description": "更详细的字段说明",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

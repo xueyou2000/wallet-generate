@@ -1,0 +1,79 @@
+package com.yl.wallet.{{ServerName}}.service;
+
+import com.yl.wallet.{{ServerName}}.dto.{{EntityName}}Dto;
+import com.yl.wallet.{{ServerName}}.entity.{{EntityName}};
+import com.yl.wallet.common.exception.BusinessException;
+import com.yl.wallet.common.pojo.MiniPage;
+import com.yl.wallet.common.vo.Response;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+
+@Api(value = "{{EntityVariableName}}", tags = "{{EntityDesc}}")
+@RequestMapping("/{{EntityVariableName}}")
+public interface {{EntityName}}ServiceFace {
+
+    /**
+     * 根据Id查询{{EntityDesc}}
+     *
+     * @param id {{EntityDesc}}Id
+     * @return {{EntityDesc}}
+     */
+    @ApiOperation(value = "根据Id查询{{EntityDesc}}",  httpMethod = "GET")
+    @GetMapping(value = "/findById", produces = "application/json;charset=UTF-8")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "{{EntityDesc}}Id", required = true),
+    })
+    Response<{{EntityName}}> findById(@RequestParam("id") Long id) throws BusinessException;
+
+    /**
+     * 分页查询{{EntityDesc}}
+     *
+     * @param pageNumber 页码
+     * @param pageSize 每页数量
+     * @param {{EntityVariableName}}Dto {{EntityDesc}}
+     * @return {{EntityDesc}}分页集合
+     */
+    @ApiOperation(value = "分页查询{{EntityDesc}}",  httpMethod = "POST")
+    @PostMapping(value = "/query/{pageNumber}/{pageSize}", produces = "application/json;charset=UTF-8")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNumber", value = "页码", paramType = "path",required = true),
+            @ApiImplicitParam(name = "pageSize", value = "每页数量", paramType = "path",required = true)
+    })
+    Response<MiniPage<{{EntityName}}>> query(@PathVariable int pageNumber, @PathVariable int pageSize, @RequestBody {{EntityName}}Dto {{EntityVariableName}}Dto) throws BusinessException;
+
+    /**
+     * 新增{{EntityDesc}}
+     *
+     * @param {{EntityVariableName}} {{EntityDesc}}
+     * @return 新增后的{{EntityDesc}}
+     */
+    @ApiOperation(value = "新增{{EntityDesc}}",  httpMethod = "POST")
+    @PostMapping(value = "/add", produces = "application/json;charset=UTF-8")
+    Response<{{EntityName}}> add(@RequestBody {{EntityName}} {{EntityVariableName}});
+
+    /**
+     * 修改{{EntityDesc}}
+     *
+     * @param {{EntityVariableName}} {{EntityDesc}}
+     */
+    @ApiOperation(value = "修改{{EntityDesc}}",  httpMethod = "POST")
+    @PostMapping(value = "/update", produces = "application/json;charset=UTF-8")
+    Response update(@RequestBody {{EntityName}} {{EntityVariableName}})  throws BusinessException;
+
+    /**
+     * 删除{{EntityDesc}}
+     *
+     * @param id {{EntityDesc}}Id
+     */
+    @ApiOperation(value = "删除{{EntityDesc}}",  httpMethod = "GET")
+    @GetMapping(value = "/deleteById", produces = "application/json;charset=UTF-8")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "{{EntityDesc}}Id", required = true),
+    })
+    Response deleteById(@RequestParam("id") Long id);
+
+
+}

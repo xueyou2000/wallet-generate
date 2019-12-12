@@ -1,0 +1,84 @@
+import _fs from "fs";
+const fs = _fs.promises;
+import path from "path";
+import chalk from "chalk";
+import { EntityConfig } from "./types";
+import { extractTypeImport, insetImportCode, mkdirs } from "./utils";
+import makeEntity from "./model/entity";
+import makeDto from "./model/dto";
+import makeServiceFace from "./model/serviceFace";
+import makeRepository from "./api/repository";
+import makeService from "./api/service";
+import makeServiceImpl from "./api/service-impl";
+import makeController from "./api/controller";
+
+export default async (config: EntityConfig) => {
+    // 强制给实体字段加上 id 和 createTime列
+    config.entity.columns = [
+        {
+            name: "id",
+            type: "Long",
+            desc: "id",
+        },
+        {
+            name: "createTime",
+            type: "Date",
+            desc: "创建时间",
+        },
+        ...config.entity.columns,
+    ];
+
+    // 输出目录
+    const outDir = path.resolve(__dirname, "../dist");
+
+    const { name, description } = config.entity;
+    console.log(chalk.white(`============= ${name}(${description}) ============= `));
+
+    // 模型相关代码
+    const importCode = extractTypeImport(config);
+    const entityCode = insetImportCode(makeEntity(config), importCode);
+    console.log(chalk.blue("* Create Entity"));
+    const dtoCode = makeDto(config);
+    console.log(chalk.blue("* Create Dto"));
+    const serviceFaceCode = makeServiceFace(config);
+    console.log(chalk.blue("* Create ServiceFace"));
+
+    // 接口相关代码
+    const repositoryCode = makeRepository(config);
+    console.log(chalk.green("* Create Repository"));
+    const serviceCode = makeService(config);
+    console.log(chalk.green("* Create Service"));
+    const serviceImplCode = makeServiceImpl(config);
+    console.log(chalk.green("* Create ServiceImpl"));
+    const controllerCode = makeController(config);
+    console.log(chalk.green("* Create Controller"));
+
+    console.log(chalk.cyan("----> 开始写入文件"));
+    // 创建模型输出文件
+    const modelDir = path.join(outDir, "model");
+    await codeToFile(path.join(modelDir, `./entity/${name}.java`), entityCode);
+    await codeToFile(path.join(modelDir, `./dto/${name}Dto.java`), dtoCode);
+    await codeToFile(path.join(modelDir, `./service/${name}ServiceFace.java`), dtoCode);
+
+    // 创建接口输出文件
+    const apiDir = path.join(outDir, "api");
+    await codeToFile(path.join(apiDir, `./repository/${name}Repository.java`), repositoryCode);
+    await codeToFile(path.join(apiDir, `./service/${name}Service.java`), serviceCode);
+    await codeToFile(path.join(apiDir, `./service/impl/${name}ServiceImpl.java`), serviceImplCode);
+    await codeToFile(path.join(apiDir, `./controller/${name}Controller.java`), controllerCode);
+
+    console.log(chalk.cyan("----> 开始完毕"));
+
+    return Promise.resolve();
+};
+
+/**
+ * 写入文件
+ * @param file 文件路径
+ * @param code 代码
+ */
+export function codeToFile(file: string, code: string) {
+    console.log("Create File ", file);
+    mkdirs(path.dirname(file));
+    return fs.writeFile(file, code, { encoding: "utf-8" });
+}
