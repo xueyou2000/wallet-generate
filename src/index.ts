@@ -1,5 +1,4 @@
-import _fs from "fs";
-const fs = _fs.promises;
+import { promises as fs, realpathSync } from "fs";
 import path from "path";
 import chalk from "chalk";
 import { EntityConfig } from "./types";
@@ -29,7 +28,7 @@ export default async (config: EntityConfig) => {
     ];
 
     // 输出目录
-    const outDir = path.resolve(__dirname, "../dist");
+    const outDir = path.resolve(realpathSync(process.cwd()), "./dist");
 
     const { name, description } = config.entity;
     console.log(chalk.white(`============= ${name}(${description}) ============= `));

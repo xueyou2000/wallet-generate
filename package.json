@@ -1,9 +1,10 @@
 {
     "name": "wallet-generate",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "wallet代码生成工具",
     "main": "bin/cli.js",
     "bin": {
+        "build": "tsc",
         "wallet-generate": "./bin/cli.js"
     },
     "author": "XueYou",
@@ -11,7 +12,7 @@
     "files": [
         "bin",
         "entitys",
-        "src",
+        "out",
         "template",
         "schema.json"
     ],
@@ -23,6 +24,7 @@
         "url": "git+https://github.com:xueyou2000/wallet-generate.git"
     },
     "dependencies": {
+        "@types/node": "^12.12.17",
         "chalk": "^3.0.0",
         "commander": "^4.0.1",
         "glob": "^7.1.6",
@@ -31,8 +33,5 @@
         "ts-node": "^8.5.4",
         "tslib": "^1.10.0",
         "typescript": "^3.7.3"
-    },
-    "devDependencies": {
-        "@types/node": "^12.12.17"
     }
 }

@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
         "baseUrl": ".",
-        "outDir": "dist",
+        "outDir": "out",
         "target": "es5",
-        "module": "esnext",
+        "module": "CommonJS",
         "declaration": false,
         "skipLibCheck": true,
         "importHelpers": true,
