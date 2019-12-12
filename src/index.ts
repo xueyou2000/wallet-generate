@@ -57,7 +57,7 @@ export default async (config: EntityConfig) => {
     const modelDir = path.join(outDir, "model");
     await codeToFile(path.join(modelDir, `./entity/${name}.java`), entityCode);
     await codeToFile(path.join(modelDir, `./dto/${name}Dto.java`), dtoCode);
-    await codeToFile(path.join(modelDir, `./service/${name}ServiceFace.java`), dtoCode);
+    await codeToFile(path.join(modelDir, `./service/${name}ServiceFace.java`), serviceFaceCode);
 
     // 创建接口输出文件
     const apiDir = path.join(outDir, "api");

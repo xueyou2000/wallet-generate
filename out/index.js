@@ -56,7 +56,7 @@ exports.default = (function (config) { return tslib_1.__awaiter(void 0, void 0, 
                 return [4 /*yield*/, codeToFile(path_1.default.join(modelDir, "./dto/" + name + "Dto.java"), dtoCode)];
             case 2:
                 _b.sent();
-                return [4 /*yield*/, codeToFile(path_1.default.join(modelDir, "./service/" + name + "ServiceFace.java"), dtoCode)];
+                return [4 /*yield*/, codeToFile(path_1.default.join(modelDir, "./service/" + name + "ServiceFace.java"), serviceFaceCode)];
             case 3:
                 _b.sent();
                 apiDir = path_1.default.join(outDir, "api");
