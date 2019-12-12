@@ -10,7 +10,7 @@ import lombok.Data;
  * {{EntityDesc}}
  */
 @Data
-@ApiModel(value = "{{EntityName}}Dto", description = "菜单查询")
+@ApiModel(value = "{{EntityName}}Dto", description = "{{EntityDesc}}查询")
 public class {{EntityName}}Dto {
 
     /**
@@ -20,9 +20,9 @@ public class {{EntityName}}Dto {
     private QueryBaseDto queryBaseDto = new QueryBaseDto();
 
     /**
-     * 菜单信息
+     * {{EntityDesc}}信息
      */
-    @ApiModelProperty(value = "菜单信息")
+    @ApiModelProperty(value = "{{EntityDesc}}信息")
     private {{EntityName}} {{EntityVariableName}} = new {{EntityName}}();
 
 
