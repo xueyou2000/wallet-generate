@@ -16,6 +16,8 @@ npm add -g wallet-generate
 
 ## 撰写配置文件
 
+> 注意: 生成的字段永远会添加`id`和`createTime`字段, 请勿重复添加.
+
 例如我们生成一个菜单实体, 建立一个`Meni.json`的文件.
 
 例子:

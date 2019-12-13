@@ -24,7 +24,7 @@ export default async (config: EntityConfig) => {
             type: "Date",
             desc: "创建时间",
         },
-        ...config.entity.columns,
+        ...config.entity.columns.filter((x) => x.name !== "id" && x.name !== "createTime"),
     ];
 
     // 输出目录
