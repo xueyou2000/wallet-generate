@@ -52,7 +52,7 @@ public interface {{EntityName}}ServiceFace {
      */
     @ApiOperation(value = "新增{{EntityDesc}}",  httpMethod = "POST")
     @PostMapping(value = "/add", produces = "application/json;charset=UTF-8")
-    Response<{{EntityName}}> add(@RequestBody {{EntityName}} {{EntityVariableName}});
+    Response<{{EntityName}}> add(@Valid @RequestBody {{EntityName}} {{EntityVariableName}});
 
     /**
      * 修改{{EntityDesc}}
@@ -61,7 +61,7 @@ public interface {{EntityName}}ServiceFace {
      */
     @ApiOperation(value = "修改{{EntityDesc}}",  httpMethod = "POST")
     @PostMapping(value = "/update", produces = "application/json;charset=UTF-8")
-    Response update(@RequestBody {{EntityName}} {{EntityVariableName}})  throws BusinessException;
+    Response update(@Valid @RequestBody {{EntityName}} {{EntityVariableName}})  throws BusinessException;
 
     /**
      * 删除{{EntityDesc}}

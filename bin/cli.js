@@ -11,5 +11,6 @@ program
     .usage(`${chalk.green("wallet-generate -f menu.json")}`)
     .option("-f, --file [value]", "实体配置文件")
     .option("-d, --dir <path>", "配置文件目录")
+    .option("-c, --create [value]", "生成配置文件案例, 指定配置文件名称")
     .action(create)
     .parse(process.argv);

@@ -1,4 +1,5 @@
-const fs = require("fs").promises;
+const _fs = require("fs");
+const fs = _fs.promises;
 const path = require("path");
 const glob = require("glob");
 const ora = require("ora");
@@ -29,11 +30,15 @@ async function createEntity(file) {
  * 创建实体模型以及相关类型
  */
 module.exports = async (cmd) => {
-    const spinner = ora("::代码生成开始::\n").start();
     try {
+        if (cmd.create) {
+            await fs.copyFile(path.resolve(__dirname, "../entitys/menu.json"), path.resolve(_fs.realpathSync(process.cwd()), `${typeof cmd.create === "string" ? cmd.create : "example"}.json`));
+            return;
+        }
         if (!cmd.file && !cmd.dir) {
             throw new Error("请指定参数");
         }
+        var spinner = ora("::代码生成开始::\n").start();
         if (cmd.file) {
             // 根据指定配置文件, 生成单个实体
             await createEntity(cmd.file);

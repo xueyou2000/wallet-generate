@@ -50,7 +50,7 @@ public class {{EntityName}}Controller implements {{EntityName}}ServiceFace {
      * @return {{EntityDesc}}分页集合
      */
     @Override
-    public Response<MiniPage<{{EntityName}}>> query(int pageNumber, int pageSize, {{EntityName}}Dto {{EntityVariableName}}Dto) throws BusinessException {
+    public Response<MiniPage<{{EntityName}}>> query(int pageNumber, int pageSize, @Valid {{EntityName}}Dto {{EntityVariableName}}Dto) throws BusinessException {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return Response.Ok({{EntityVariableName}}Service.findByProperties(pageable, {{EntityVariableName}}Dto));
     }
@@ -62,7 +62,7 @@ public class {{EntityName}}Controller implements {{EntityName}}ServiceFace {
      * @return 新增后的{{EntityDesc}}
      */
     @Override
-    public Response<{{EntityName}}> add({{EntityName}} {{EntityVariableName}}) {
+    public Response<{{EntityName}}> add(@Valid {{EntityName}} {{EntityVariableName}}) {
         return Response.Ok({{EntityVariableName}}Service.add({{EntityVariableName}}));
     }
 
@@ -72,7 +72,7 @@ public class {{EntityName}}Controller implements {{EntityName}}ServiceFace {
      * @param {{EntityVariableName}} {{EntityDesc}}
      */
     @Override
-    public Response update({{EntityName}} {{EntityVariableName}}) throws BusinessException {
+    public Response update(@Valid {{EntityName}} {{EntityVariableName}}) throws BusinessException {
         {{EntityVariableName}}Service.update({{EntityVariableName}});
         return Response.Ok();
     }
