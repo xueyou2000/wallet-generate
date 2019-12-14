@@ -4,6 +4,7 @@
         "outDir": "out",
         "target": "es5",
         "module": "CommonJS",
+        "sourceMap": true,
         "declaration": false,
         "skipLibCheck": true,
         "importHelpers": true,

@@ -4,6 +4,7 @@
     "entity": {
         "name": "Menu",
         "description": "系统菜单",
+        "addControllerRemove": true,
         "columns": [
             {
                 "name": "name",

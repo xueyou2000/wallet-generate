@@ -29,7 +29,7 @@ exports.default = (function (config) { return tslib_1.__awaiter(void 0, void 0, 
                         type: "Date",
                         desc: "创建时间",
                     }
-                ], config.entity.columns);
+                ], config.entity.columns.filter(function (x) { return x.name !== "id" && x.name !== "createTime"; }));
                 outDir = path_1.default.resolve(fs_1.realpathSync(process.cwd()), "./dist");
                 _a = config.entity, name = _a.name, description = _a.description;
                 console.log(chalk_1.default.white("============= " + name + "(" + description + ") ============= "));
@@ -88,3 +88,4 @@ function codeToFile(file, code) {
     return fs_1.promises.writeFile(file, code, { encoding: "utf-8" });
 }
 exports.codeToFile = codeToFile;
+//# sourceMappingURL=index.js.map

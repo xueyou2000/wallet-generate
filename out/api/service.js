@@ -22,3 +22,4 @@ function makeService(config) {
     return code;
 }
 exports.default = makeService;
+//# sourceMappingURL=service.js.map

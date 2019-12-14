@@ -25,6 +25,18 @@ export interface Entity {
      */
     description: string;
     /**
+     * 不生成新增控制器
+     */
+    addControllerRemove?: boolean;
+    /**
+     * 不生成删除控制器
+     */
+    removeControllerRemove?: boolean;
+    /**
+     * 不生成更新控制器
+     */
+    updateControllerRemove?: boolean;
+    /**
      * 实体字段
      */
     columns: EntityColumn[];

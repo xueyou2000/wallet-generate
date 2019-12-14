@@ -12,6 +12,7 @@ import { humpToUperCase, tplfile, toLowcase } from "../utils";
  */
 export default function makeController(config: EntityConfig) {
     const { entity } = config;
+    const { addControllerRemove, updateControllerRemove, removeControllerRemove } = entity;
 
     const params = {
         ServerName: config["server-name"],
@@ -20,6 +21,33 @@ export default function makeController(config: EntityConfig) {
         EntityVariableName: toLowcase(entity.name),
     };
 
-    const code = tplfile("controller", params);
+    let code = tplfile("controller", params);
+    if (addControllerRemove) {
+        code = removeMethod(code, "新增");
+    }
+    if (updateControllerRemove) {
+        code = removeMethod(code, "修改");
+    }
+    if (removeControllerRemove) {
+        code = removeMethod(code, "删除");
+    }
     return code;
+}
+
+/**
+ * 删除方法
+ * @param code 控制器代码
+ * @param tag 要删除的标签, 比如 新增/修改/删除
+ */
+function removeMethod(code: string, tag: string) {
+    const END_POINT = "    }";
+    const start = code.indexOf(tag) - 15;
+    const end = code.indexOf(END_POINT, start);
+
+    const part = code.slice(start, end + END_POINT.length);
+
+    // console.log("========测试========");
+    // console.log(code.slice(start, end + END_POINT.length));
+    // console.log("========测试========");
+    return code.replace(part, "");
 }

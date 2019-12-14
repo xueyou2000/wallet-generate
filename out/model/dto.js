@@ -23,3 +23,4 @@ function makeDto(config) {
     return code;
 }
 exports.default = makeDto;
+//# sourceMappingURL=dto.js.map

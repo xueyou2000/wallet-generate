@@ -12,6 +12,7 @@ const ora = require("ora");
 // });
 
 const Generate = require(path.resolve(__dirname, "../out/index.js")).default;
+// const Generate = require(path.resolve(__dirname, "../src/index.ts")).default;
 
 /**
  * 创建单个实体

@@ -24,6 +24,24 @@
                     "description": "实体注释",
                     "type": "string"
                 },
+                "addControllerRemove": {
+                    "title": "不生成新增控制器",
+                    "description": "某些新增实现不是简单的实体新增, 需要自定实现. 这个时候如果还创建默认的新增, 接口放出去会有安全问题.",
+                    "type": "boolean",
+                    "default": false
+                },
+                "removeControllerRemove": {
+                    "title": "不生成删除控制器",
+                    "description": "某些实体不允许外部直接修改, 会有安全问题",
+                    "type": "boolean",
+                    "default": false
+                },
+                "updateControllerRemove": {
+                    "title": "不生成更新控制器",
+                    "description": "某些实体不允许外部直接更新, 会有安全问题",
+                    "type": "boolean",
+                    "default": false
+                },
                 "columns": {
                     "title": "实体字段配置",
                     "description": "实体字段配置",

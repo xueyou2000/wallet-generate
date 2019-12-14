@@ -35,3 +35,4 @@ function createSetColumns(name, columns) {
         return (prev += (index === 0 ? "" : "\n") + "\t\t\t\t.set(q" + name + "." + current.name + ", " + variableName + ".get" + utils_1.toUpcase(current.name) + "())");
     }, "");
 }
+//# sourceMappingURL=service-impl.js.map

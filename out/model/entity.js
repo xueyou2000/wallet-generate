@@ -62,3 +62,4 @@ function parsType(column) {
         return type.slice(type.lastIndexOf(".") + 1);
     }
 }
+//# sourceMappingURL=entity.js.map
