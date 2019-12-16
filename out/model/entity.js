@@ -31,11 +31,11 @@ exports.default = makeEntity;
  */
 function createColumns(columns) {
     // 列代码
-    var columnsCode = columns.reduce(function (prev, current) {
+    var columnsCode = columns.reduce(function (prev, current, index) {
         var name = utils_1.humpToUperCase(current.name);
         var type = parsType(current);
         var apiType = current.isEnum ? "string" : type;
-        var code = "\n    /**\n     * " + current.desc + "\n     * " + (current.summary || "") + "\n     */\n    @Column(name = \"" + name + "\", length = " + (current.length || 60) + ", nullable = " + (current.nullable || false) + ")\n    @ApiModelProperty(value = \"" + current.desc + "\", dataType = \"" + apiType + "\")";
+        var code = "\n    /**\n     * " + current.desc + "\n     * " + (current.summary || "") + "\n     */\n    @Column(name = \"" + name + "\", length = " + (current.length || 60) + ", nullable = " + (current.nullable || false) + ")\n    @ApiModelProperty(value = \"" + current.desc + "\", dataType = \"" + apiType + "\")\n    @ExcelField(name = \"" + current.name + "\", column = " + index + ")";
         // 特殊注解
         if (name === "ID") {
             code += "\n    @Id\n    @GeneratedValue(strategy = GenerationType.IDENTITY)";

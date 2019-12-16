@@ -5,6 +5,7 @@ import com.yl.wallet.{{ServerName}}.entity.{{EntityName}};
 import com.yl.wallet.{{ServerName}}.repository.{{EntityName}}Repository;
 import com.yl.wallet.{{ServerName}}.service.{{EntityName}}Service;
 import com.yl.wallet.{{ServerName}}.service.{{EntityName}}ServiceFace;
+import com.yl.wallet.common.annotation.OperationEntity;
 import com.yl.wallet.common.annotation.OperationTypeTag;
 import com.yl.wallet.common.enums.ExceptionEnum;
 import com.yl.wallet.common.enums.OperationType;
@@ -20,6 +21,7 @@ import javax.annotation.Resource;
 import java.util.Optional;
 
 @RestController
+@OperationEntity(value = "{{EntityDesc}}", messageCode = "{{EntityName}}")
 public class {{EntityName}}Controller implements {{EntityName}}ServiceFace {
 
     @Resource

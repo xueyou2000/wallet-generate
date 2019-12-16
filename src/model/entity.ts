@@ -32,7 +32,7 @@ export default function makeEntity(config: EntityConfig) {
  */
 function createColumns(columns: EntityColumn[]) {
     // 列代码
-    let columnsCode = columns.reduce((prev, current) => {
+    let columnsCode = columns.reduce((prev, current, index) => {
         const name = humpToUperCase(current.name);
         const type = parsType(current);
         const apiType = current.isEnum ? "string" : type;
@@ -42,7 +42,8 @@ function createColumns(columns: EntityColumn[]) {
      * ${current.summary || ""}
      */
     @Column(name = "${name}", length = ${current.length || 60}, nullable = ${current.nullable || false})
-    @ApiModelProperty(value = "${current.desc}", dataType = "${apiType}")`;
+    @ApiModelProperty(value = "${current.desc}", dataType = "${apiType}")
+    @ExcelField(name = "${current.name}", column = ${index})`;
 
         // 特殊注解
         if (name === "ID") {

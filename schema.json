@@ -87,6 +87,12 @@
                                 "title": "字段说明",
                                 "description": "更详细的字段说明",
                                 "type": "string"
+                            },
+                            "export": {
+                                "title": "是否导出excel",
+                                "description": "此字典是否导出, 默认导出",
+                                "type": "boolean",
+                                "default": true
                             }
                         }
                     }

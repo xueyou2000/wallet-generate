@@ -74,4 +74,8 @@ export interface EntityColumn {
      * 字段说明
      */
     summary?: string;
+    /**
+     * 是否导出
+     */
+    export?: boolean;
 }

@@ -10,6 +10,7 @@ import makeRepository from "./api/repository";
 import makeService from "./api/service";
 import makeServiceImpl from "./api/service-impl";
 import makeController from "./api/controller";
+import { makeI18nMessage_en, makeI18nMessage_zh } from "./message";
 
 export default async (config: EntityConfig) => {
     // 强制给实体字段加上 id 和 createTime列
@@ -52,6 +53,10 @@ export default async (config: EntityConfig) => {
     const controllerCode = makeController(config);
     console.log(chalk.green("* Create Controller"));
 
+    // 创建国际化资源
+    const en_message = makeI18nMessage_en(config);
+    const zh_message = makeI18nMessage_zh(config);
+
     console.log(chalk.cyan("----> 开始写入文件"));
     // 创建模型输出文件
     const modelDir = path.join(outDir, "model");
@@ -65,6 +70,11 @@ export default async (config: EntityConfig) => {
     await codeToFile(path.join(apiDir, `./service/${name}Service.java`), serviceCode);
     await codeToFile(path.join(apiDir, `./service/impl/${name}ServiceImpl.java`), serviceImplCode);
     await codeToFile(path.join(apiDir, `./controller/${name}Controller.java`), controllerCode);
+
+    // 创建国际化资源输出文件
+    const messageDir = path.join(outDir, "message");
+    await codeToFile(path.join(messageDir, `./message_en_US.properties`), en_message);
+    await codeToFile(path.join(messageDir, `./message_zh_CN.properties`), zh_message);
 
     console.log(chalk.cyan("----> 开始完毕"));
 

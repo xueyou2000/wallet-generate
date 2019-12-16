@@ -12,8 +12,9 @@ var repository_1 = tslib_1.__importDefault(require("./api/repository"));
 var service_1 = tslib_1.__importDefault(require("./api/service"));
 var service_impl_1 = tslib_1.__importDefault(require("./api/service-impl"));
 var controller_1 = tslib_1.__importDefault(require("./api/controller"));
+var message_1 = require("./message");
 exports.default = (function (config) { return tslib_1.__awaiter(void 0, void 0, void 0, function () {
-    var outDir, _a, name, description, importCode, entityCode, dtoCode, serviceFaceCode, repositoryCode, serviceCode, serviceImplCode, controllerCode, modelDir, apiDir;
+    var outDir, _a, name, description, importCode, entityCode, dtoCode, serviceFaceCode, repositoryCode, serviceCode, serviceImplCode, controllerCode, en_message, zh_message, modelDir, apiDir, messageDir;
     return tslib_1.__generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -48,6 +49,8 @@ exports.default = (function (config) { return tslib_1.__awaiter(void 0, void 0, 
                 console.log(chalk_1.default.green("* Create ServiceImpl"));
                 controllerCode = controller_1.default(config);
                 console.log(chalk_1.default.green("* Create Controller"));
+                en_message = message_1.makeI18nMessage_en(config);
+                zh_message = message_1.makeI18nMessage_zh(config);
                 console.log(chalk_1.default.cyan("----> 开始写入文件"));
                 modelDir = path_1.default.join(outDir, "model");
                 return [4 /*yield*/, codeToFile(path_1.default.join(modelDir, "./entity/" + name + ".java"), entityCode)];
@@ -71,6 +74,13 @@ exports.default = (function (config) { return tslib_1.__awaiter(void 0, void 0, 
                 _b.sent();
                 return [4 /*yield*/, codeToFile(path_1.default.join(apiDir, "./controller/" + name + "Controller.java"), controllerCode)];
             case 7:
+                _b.sent();
+                messageDir = path_1.default.join(outDir, "message");
+                return [4 /*yield*/, codeToFile(path_1.default.join(messageDir, "./message_en_US.properties"), en_message)];
+            case 8:
+                _b.sent();
+                return [4 /*yield*/, codeToFile(path_1.default.join(messageDir, "./message_zh_CN.properties"), zh_message)];
+            case 9:
                 _b.sent();
                 console.log(chalk_1.default.cyan("----> 开始完毕"));
                 return [2 /*return*/, Promise.resolve()];
