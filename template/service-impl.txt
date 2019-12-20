@@ -55,11 +55,7 @@ public class {{EntityName}}ServiceImpl implements {{EntityName}}Service {
         }
 
         Q{{EntityName}} q{{EntityName}} = Q{{EntityName}}.{{EntityVariableName}};
-        jpaQueryFactory
-                .update(q{{EntityName}})
-                .where(q{{EntityName}}.id.eq({{EntityVariableName}}.getId()))
-{{SetColumns}}
-                .execute();
+        QueryUtils.createUpdate(jpaQueryFactory, {{EntityVariableName}}, q{{EntityName}});
     }
 
     /**

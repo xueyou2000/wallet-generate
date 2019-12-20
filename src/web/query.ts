@@ -67,7 +67,7 @@ function makeQueryCode(config: EntityConfig) {
  */
 function makeDictMapsCode(entity: Entity) {
     if (hasDict(entity)) {
-        let code = `    // 字典\n    const dictMaps = useDicts({\n`;
+        let code = `        // 字典\n    const dictMaps = useDicts({\n`;
         code = entity.columns.reduce((prev, current) => {
             if (!current.dict) {
                 return prev;
