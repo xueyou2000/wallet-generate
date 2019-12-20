@@ -14,6 +14,7 @@ program
     .option("-c, --create [value]", "生成配置文件案例, 指定配置文件名称")
     .option("--web", "生成前端代码模式")
     .option("--api", "生成并写入前端api文件")
+    .option("--query", "生成前端查询页面")
     .option("--all", "生成前端所有部分")
     .action(create)
     .parse(process.argv);

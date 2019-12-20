@@ -1,0 +1,97 @@
+import {{EntityName}}Service from "@/api/{{EntityVariableName}}";
+import { {{EntityName}}, {{EntityName}}QueryDto } from "@/api/{{EntityVariableName}}/types";
+import ModalPopup from "@/application/component/ModalPopup";
+import QueryPage from "@/application/component/QueryPage";
+import useQueryDto from "@/application/helper/useQueryDto";
+import withContext from "@/application/helper/withContext";
+import I18nContext from "@/application/i18n/I18nContext";
+import { autoQuery, dateNormalizeToSubmit, renderTableColColor, renderSelect } from "@/application/utils";
+import { Button, Col, DatePicker, FormArrayBlock, FormBlock, FormItem, FormItemField, Input, InputNumber, Row, TableColumn } from "@/application/xy-libs";
+import { API_TYPES } from "@/config/constants";
+import { formateDate } from "@/xy-admin-kit/utils/date-utils";
+import React, { useContext } from "react";
+import {{EntityName}}AddModal from "./add";
+import {{EntityName}}UpdateModal from "./update";
+import Permission from "@/application/component/Permission";
+import useDicts from '@/application/helper/useDicts';
+
+/**
+ * {{EntityDesc}}查询页
+ */
+function {{EntityName}}QueryPage({ {{EntityVariableName}}Service }: { {{EntityVariableName}}Service?: {{EntityName}}Service }) {
+    const I18N = useContext(I18nContext);
+    
+    {{DictColumn}}
+    // 查询条件
+    const [queryDtoRef, dataRef, queryRef] = useQueryDto<{{EntityName}}QueryDto>({
+        queryBaseDto: {
+            dateRanges: [
+                {
+                    startDate: null,
+                    endDate: null,
+                    columnsField: "createTime",
+                },
+            ],
+        },
+        {{EntityVariableName}}: {
+{{EntityQueryColumn}}
+        },
+    });
+    // 表格列
+    const columus: TableColumn[] = [
+{{EntityTableColumn}}
+    ];
+
+    // 弹出新增对话框
+    function showAddModal() {
+        ModalPopup(I18N.page.{{EntityName}}Query.addModalTitle, <{{EntityName}}AddModal />, autoQuery(queryRef));
+    }
+
+    // 弹出修改对话框
+    function showUpdateModal({{EntityVariableName}}?: {{EntityName}}) {
+        ModalPopup(I18N.page.{{EntityName}}Query.updateModalTitle, <{{EntityName}}UpdateModal id={ {{EntityVariableName}}.id} />, autoQuery(queryRef));
+    }
+
+    return (
+        <QueryPage
+            title={I18N.page.{{EntityName}}Query.title}
+            columus={columus}
+            queryRef={queryRef}
+            queryDto={queryDtoRef.current}
+            startQuery={{{StartQuery}}}
+            findByPage={(query, data) => {{EntityVariableName}}Service.findByPage(query, data)}
+            extedBtns={
+                <Permission paths={[{{EntityVariableName}}Service.add]}>
+                    <Button onClick={() => showAddModal()}>{I18N.common.add}</Button>
+                </Permission>
+            }
+        >
+            <FormBlock prop="{{EntityVariableName}}">
+{{QueryComponent}}
+            </FormBlock>
+            <FormBlock prop="queryBaseDto">
+                <FormBlock prop="dateRanges">
+                    <FormArrayBlock index={0}>
+                        <FormItem label={I18N.common.createTime} className="not-width-limit">
+                            <Row>
+                                <Col span={11}>
+                                    <FormItemField prop="startDate" normalize={dateNormalizeToSubmit}>
+                                        <DatePicker showTime={true} />
+                                    </FormItemField>
+                                </Col>
+                                <Col span={1}></Col>
+                                <Col span={11}>
+                                    <FormItemField prop="endDate" normalize={dateNormalizeToSubmit}>
+                                        <DatePicker showTime={true} />
+                                    </FormItemField>
+                                </Col>
+                            </Row>
+                        </FormItem>
+                    </FormArrayBlock>
+                </FormBlock>
+            </FormBlock>
+        </QueryPage>
+    );
+}
+
+export default withContext({{EntityName}}QueryPage, [API_TYPES.{{EntityName}}Service]);

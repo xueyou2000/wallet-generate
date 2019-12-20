@@ -1,0 +1,5 @@
+    {{EntityName}}Query: {
+        title: "{{EntityDesc}}管理",
+        addModalTitle: "新增{{EntityDesc}}",
+        updateModalTitle: "修改{{EntityDesc}}",
+    },

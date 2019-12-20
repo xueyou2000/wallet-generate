@@ -178,4 +178,89 @@ function codeToFile(file, code) {
     return fs_1.default.promises.writeFile(file, code, { encoding: "utf-8" });
 }
 exports.codeToFile = codeToFile;
+/**
+ * 是否存在字典类型
+ * @param entity
+ */
+function hasDict(entity) {
+    return entity.columns.some(function (x) { return !!x.dict; });
+}
+exports.hasDict = hasDict;
+/**
+ * 获取字典名, 国际化
+ * @param fieldName 字段名
+ * @param entityName 实体名
+ */
+function getI18nFieldName(fieldName, entityName) {
+    switch (fieldName) {
+        case "id":
+            return '"id"';
+        case "status":
+            return "I18N.common.status";
+        case "createTime":
+            return "I18N.common.createTime";
+        default:
+            return "I18N.entity." + entityName + "." + fieldName;
+    }
+}
+exports.getI18nFieldName = getI18nFieldName;
+/**
+ * 生成 FormItem 代码
+ * @param column
+ * @param entityName
+ * @param content
+ */
+function makeFormItem(column, entityName, content) {
+    var code = "<FormItem prop=\"" + column.name + "\" label={" + getI18nFieldName(column.name, entityName) + "} " + extedFormProps(column) + ">\n";
+    code += alignTab(content, 2);
+    code += "</FormItem>";
+    return code;
+}
+exports.makeFormItem = makeFormItem;
+/**
+ * FormItem扩展属性
+ * @param column
+ */
+function extedFormProps(column) {
+    if (column.type === "Date") {
+        return "normalize={dateNormalizeToSubmit}";
+    }
+    else {
+        return "";
+    }
+}
+/**
+ * 代码对齐
+ * 将代码的每一行都进行空格推进
+ * @param content 代码
+ * @param spaceCount 对齐tab数量, 1tab等于4空格
+ */
+function alignTab(content, spaceCount) {
+    if (spaceCount === void 0) { spaceCount = 1; }
+    var rows = content.split("\n");
+    var code = "";
+    rows.forEach(function (row) {
+        code += new Array(spaceCount).join("    ") + row + "\n";
+    });
+    return code;
+}
+exports.alignTab = alignTab;
+/**
+ * 创建组件内容
+ * @param column
+ */
+function makeComponent(column) {
+    if (column.dict) {
+        return "{renderSelect(dictMaps." + column.dict + ", true)}";
+    }
+    switch (column.type) {
+        case "Long":
+            return "<DatePicker />";
+        case "Date":
+            return "<InputNumber />";
+        default:
+            return "<Input />";
+    }
+}
+exports.makeComponent = makeComponent;
 //# sourceMappingURL=utils.js.map

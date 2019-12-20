@@ -7,6 +7,10 @@ export interface EntityConfig {
      */
     "server-name": string;
     /**
+     * 生成页面路径
+     */
+    path?: string;
+    /**
      * 实体定义
      */
     entity: Entity;
@@ -78,4 +82,8 @@ export interface EntityColumn {
      * 是否导出
      */
     export?: boolean;
+    /**
+     * 字典键
+     */
+    dict?: string;
 }

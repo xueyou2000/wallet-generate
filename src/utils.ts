@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { EntityConfig, EntityColumn } from "./types";
+import { EntityConfig, EntityColumn, Entity } from "./types";
 
 /**
  * 驼峰转换下划线
@@ -170,4 +170,90 @@ export function javaTypeToTsType(type: string) {
 export function codeToFile(file: string, code: string) {
     mkdirs(path.dirname(file));
     return fs.promises.writeFile(file, code, { encoding: "utf-8" });
+}
+
+/**
+ * 是否存在字典类型
+ * @param entity
+ */
+export function hasDict(entity: Entity) {
+    return entity.columns.some((x) => !!x.dict);
+}
+
+/**
+ * 获取字典名, 国际化
+ * @param fieldName 字段名
+ * @param entityName 实体名
+ */
+export function getI18nFieldName(fieldName: string, entityName: string) {
+    switch (fieldName) {
+        case "id":
+            return '"id"';
+        case "status":
+            return `I18N.common.status`;
+        case "createTime":
+            return `I18N.common.createTime`;
+        default:
+            return `I18N.entity.${entityName}.${fieldName}`;
+    }
+}
+
+/**
+ * 生成 FormItem 代码
+ * @param column
+ * @param entityName
+ * @param content
+ */
+export function makeFormItem(column: EntityColumn, entityName: string, content: string) {
+    let code = `<FormItem prop="${column.name}" label={${getI18nFieldName(column.name, entityName)}} ${extedFormProps(column)}>\n`;
+    code += alignTab(content, 2);
+    code += `</FormItem>`;
+    return code;
+}
+
+/**
+ * FormItem扩展属性
+ * @param column
+ */
+function extedFormProps(column: EntityColumn) {
+    if (column.type === "Date") {
+        return `normalize={dateNormalizeToSubmit}`;
+    } else {
+        return "";
+    }
+}
+
+/**
+ * 代码对齐
+ * 将代码的每一行都进行空格推进
+ * @param content 代码
+ * @param spaceCount 对齐tab数量, 1tab等于4空格
+ */
+export function alignTab(content: string, spaceCount: number = 1) {
+    const rows = content.split("\n");
+    let code = "";
+
+    rows.forEach((row) => {
+        code += new Array(spaceCount).join("    ") + row + "\n";
+    });
+
+    return code;
+}
+
+/**
+ * 创建组件内容
+ * @param column
+ */
+export function makeComponent(column: EntityColumn) {
+    if (column.dict) {
+        return `{renderSelect(dictMaps.${column.dict}, true)}`;
+    }
+    switch (column.type) {
+        case "Long":
+            return `<DatePicker />`;
+        case "Date":
+            return `<InputNumber />`;
+        default:
+            return `<Input />`;
+    }
 }

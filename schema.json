@@ -8,6 +8,11 @@
             "description": "服务名称, 比如boss服务, 这将影响生成的包名",
             "type": "string"
         },
+        "page": {
+            "title": "页面生成路径",
+            "description": "页面查询/新增/修改文件的生成路径, 如: admin/operatorInfo, 将会在 /src/pages/admin/operatorInfo 下生成. 默认在 pages 下生成实体名称首字母小写的文件夹",
+            "type": "string"
+        },
         "entity": {
             "title": "实体配置",
             "description": "实体信息配置",
@@ -93,6 +98,11 @@
                                 "description": "此字典是否导出, 默认导出",
                                 "type": "boolean",
                                 "default": true
+                            },
+                            "dict": {
+                                "title": "字典键",
+                                "description": "比如枚举EnableOrUnenable类型, 字典键可能是ENABLE_OR_UNENABLE",
+                                "type": "string"
                             }
                         }
                     }
