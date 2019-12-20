@@ -1,0 +1,15 @@
+import { QueryBase } from "@/application/http/types";
+
+/**
+ * {{EntityDesc}}
+ */
+export interface {{EntityName}} {
+{{EntityColumnCode}}
+}
+
+/**
+ * {{EntityDesc}}查询
+ */
+export interface {{EntityName}}QueryDto extends QueryBase {
+    {{EntityVariableName}}?: {{EntityName}};
+}

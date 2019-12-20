@@ -1,0 +1,4 @@
+    /**
+     * {{EntityDesc}}接口
+     */
+    {{EntityName}}Service: Symbol.for("{{EntityName}}Service"),

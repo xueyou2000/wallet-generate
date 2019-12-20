@@ -1,0 +1,49 @@
+import BaseService, { ResourceURI } from "@/application/http/BaseService";
+import { MiniPage } from "@/application/http/types";
+import { injectable } from "inversify";
+import { {{EntityName}}, {{EntityName}}QueryDto } from "./types";
+
+/**
+ * {{EntityDesc}}接口
+ */
+@injectable()
+export default class {{EntityName}}Service extends BaseService {
+
+    /**
+     * 根据id获取{{EntityDesc}}
+     * @param id {{EntityDesc}}id
+     */
+    @ResourceURI(`/{{ServerName}}/{{EntityVariableName}}/findById`)
+    public findById(id: number, url?: string) {
+        return this.post<{{EntityName}}>(`${url}?id=${id}`).then((data) => data.res);
+    }
+
+    /**
+     * 分页查询{{EntityDesc}}
+     * @param queryDto 查询参数
+     * @param pageInfo 分页参数
+     */
+    @ResourceURI(`/{{ServerName}}/{{EntityVariableName}}/query`)
+    public findByPage(queryDto: {{EntityName}}QueryDto, pageInfo: MiniPage, url?: string) {
+        return this.post<MiniPage<{{EntityName}}>>(`${url}/${pageInfo.pageNumber}/${pageInfo.pageSize}`, queryDto).then((data) => data.res);
+    }
+
+    /**
+     * 新增{{EntityDesc}}
+     * @param dto {{EntityDesc}}
+     */
+    @ResourceURI(`/{{ServerName}}/{{EntityVariableName}}/add`)
+    public add(dto: {{EntityName}}, url?: string) {
+        return this.post(url, dto);
+    }
+
+    /**
+     * 修改{{EntityDesc}}
+     * @param dto {{EntityDesc}}
+     */
+    @ResourceURI(`/{{ServerName}}/{{EntityVariableName}}/update`)
+    public update(dto: {{EntityName}}, url?: string) {
+        return this.post(url, dto);
+    }
+
+}

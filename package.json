@@ -4,7 +4,7 @@
     "description": "wallet代码生成工具",
     "main": "bin/cli.js",
     "bin": {
-        "build": "tsc",
+        "build-code": "tsc",
         "wallet-generate": "./bin/cli.js"
     },
     "author": "XueYou",

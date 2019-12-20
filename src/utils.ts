@@ -135,3 +135,39 @@ export function insetImportCode(code: string, importCode: string) {
     const lastImport = code.indexOf(lastImportCode) + lastImportCode.length;
     return code.slice(0, lastImport) + importCode + code.slice(lastImport);
 }
+
+/**
+ * 检测目录是否合法
+ * @description 目录是一个合法的项目根路径, 有src和package.json
+ * @param dir 项目目录
+ */
+export function checkDir(dir: string) {
+    if (fs.existsSync(path.join(dir, "src")) && fs.existsSync(path.join(dir, "package.json"))) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
+ * java类型转ts类型
+ * @param type java类型
+ */
+export function javaTypeToTsType(type: string) {
+    switch (type) {
+        case "Long":
+            return "number";
+        default:
+            return "string";
+    }
+}
+
+/**
+ * 写入文件
+ * @param file 文件路径
+ * @param code 代码
+ */
+export function codeToFile(file: string, code: string) {
+    mkdirs(path.dirname(file));
+    return fs.promises.writeFile(file, code, { encoding: "utf-8" });
+}

@@ -141,4 +141,41 @@ function insetImportCode(code, importCode) {
     return code.slice(0, lastImport) + importCode + code.slice(lastImport);
 }
 exports.insetImportCode = insetImportCode;
+/**
+ * 检测目录是否合法
+ * @description 目录是一个合法的项目根路径, 有src和package.json
+ * @param dir 项目目录
+ */
+function checkDir(dir) {
+    if (fs_1.default.existsSync(path_1.default.join(dir, "src")) && fs_1.default.existsSync(path_1.default.join(dir, "package.json"))) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+exports.checkDir = checkDir;
+/**
+ * java类型转ts类型
+ * @param type java类型
+ */
+function javaTypeToTsType(type) {
+    switch (type) {
+        case "Long":
+            return "number";
+        default:
+            return "string";
+    }
+}
+exports.javaTypeToTsType = javaTypeToTsType;
+/**
+ * 写入文件
+ * @param file 文件路径
+ * @param code 代码
+ */
+function codeToFile(file, code) {
+    mkdirs(path_1.default.dirname(file));
+    return fs_1.default.promises.writeFile(file, code, { encoding: "utf-8" });
+}
+exports.codeToFile = codeToFile;
 //# sourceMappingURL=utils.js.map
