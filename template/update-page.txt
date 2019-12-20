@@ -1,6 +1,6 @@
 import {{EntityName}}Service from "@/api/{{EntityVariableName}}";
 import { {{EntityName}} } from "@/api/{{EntityVariableName}}/types";
-import useSubmit from "@/application/helper/useSubmit";
+import useUpdate from "@/application/helper/useUpdate";
 import withContext from "@/application/helper/withContext";
 import I18nContext from "@/application/i18n/I18nContext";
 import { formValidateFailHandle, renderSelect, dateNormalizeToSubmit } from "@/application/utils";
@@ -10,18 +10,22 @@ import { DictItemsMap } from '@/api/dict/types';
 import React, { useContext, useRef } from "react";
 
 /**
- * {{EntityDesc}}新增对话框
+ * {{EntityDesc}}修改对话框
  */
-function {{EntityName}}AddModal({ {{EntityVariableName}}Service, dictMaps }: { {{EntityVariableName}}Service?: {{EntityName}}Service; dictMaps?: DictItemsMap; }) {
+function {{EntityName}}UpdateModal({ {{EntityVariableName}}Service, id, dictMaps }: { {{EntityVariableName}}Service?: {{EntityName}}Service; id: number; dictMaps?: DictItemsMap; }) {
     const I18N = useContext(I18nContext);
-    const [loading, submit] = useSubmit<{{EntityName}}>(I18N.page.{{EntityName}}Query.addModalTitle, (data) => {{EntityVariableName}}Service.add(data));
+    const [formMethodsRef, loading, submit] = useUpdate<{{EntityName}}>(
+        I18N.entity.{{EntityName}}.entityName,
+        () => {{EntityVariableName}}Service.findById(id),
+        (data) => {{EntityVariableName}}Service.update(data),
+    );
 
     const ValidConfig = useRef<ValidateConfig<{{EntityName}}>>({
 {{ValidConfig}}
     });
 
     return (
-        <Form labelWidth="110px" onSubmit={submit} onValidateFail={formValidateFailHandle} validConfig={ValidConfig.current}>
+        <Form labelWidth="110px" onSubmit={submit} onValidateFail={formValidateFailHandle} validConfig={ValidConfig.current} getFormMethods={(methods) => (formMethodsRef.current = methods)}>
             <div className="fake-modal-body">
                 <Spin spinning={loading} inline={false}>
 {{AddComponent}}
@@ -39,4 +43,4 @@ function {{EntityName}}AddModal({ {{EntityVariableName}}Service, dictMaps }: { {
     );
 }
 
-export default withContext({{EntityName}}AddModal, [API_TYPES.{{EntityName}}Service]);
+export default withContext({{EntityName}}UpdateModal, [API_TYPES.{{EntityName}}Service]);

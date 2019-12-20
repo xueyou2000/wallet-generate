@@ -16,6 +16,7 @@ program
     .option("--api", "生成并写入前端api文件")
     .option("--query", "生成前端查询页面")
     .option("--add", "生成前端新增页面")
+    .option("--update", "生成前端修改页面")
     .option("--all", "生成前端所有部分")
     .action(create)
     .parse(process.argv);
