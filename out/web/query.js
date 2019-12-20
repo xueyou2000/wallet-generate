@@ -31,7 +31,7 @@ exports.default = (function (config) { return tslib_1.__awaiter(void 0, void 0, 
                 }
                 queryCode = makeQueryCode(config);
                 defaultPage = utils_1.toLowcase(config.entity.name);
-                queryPageFile = path_1.default.join(projectDir, "src/pages", config.path || defaultPage, "index.tsx");
+                queryPageFile = path_1.default.join(projectDir, "src/pages", config.page || defaultPage, "index.tsx");
                 if (!!utils_1.exists(queryPageFile)) return [3 /*break*/, 2];
                 return [4 /*yield*/, utils_1.codeToFile(queryPageFile, queryCode)];
             case 1:

@@ -1,0 +1,43 @@
+import {{EntityName}}Service from "@/api/{{EntityVariableName}}";
+import { {{EntityName}} } from "@/api/{{EntityVariableName}}/types";
+import useSubmit from "@/application/helper/useSubmit";
+import withContext from "@/application/helper/withContext";
+import I18nContext from "@/application/i18n/I18nContext";
+import { formValidateFailHandle, renderSelect, dateNormalizeToSubmit } from "@/application/utils";
+import { Button, Form, FormItem, FormMethods, FormSubmitButton, Input, MessageBoxPopup, ModelFooter, Spin, ValidateConfig } from "@/application/xy-libs";
+import { API_TYPES } from "@/config/constants";
+import { DictItemsMap } from '@/api/dict/types';
+import React, { useContext, useRef } from "react";
+
+/**
+ * {{EntityDesc}}新增对话框
+ */
+function {{EntityName}}AddModal({ {{EntityVariableName}}Service, dictMaps }: { {{EntityVariableName}}Service?: {{EntityName}}Service; dictMaps?: DictItemsMap; }) {
+    const formMethodsRef = useRef<FormMethods>(null);
+    const I18N = useContext(I18nContext);
+    const [loading, submit] = useSubmit<{{EntityName}}>(I18N.page.{{EntityName}}Query.addModalTitle, (data) => {{EntityVariableName}}Service.add(data));
+
+    const ValidConfig = useRef<ValidateConfig<{{EntityName}}>>({
+{{ValidConfig}}
+    });
+
+    return (
+        <Form labelWidth="110px" onSubmit={submit} onValidateFail={formValidateFailHandle} validConfig={ValidConfig.current}>
+            <div className="fake-modal-body">
+                <Spin spinning={loading} inline={false}>
+{{AddComponent}}
+                </Spin>
+            </div>
+            <ModelFooter>
+                <Button type="text">{I18N.common.cancel}</Button>
+                <FormSubmitButton>
+                    <Button className="submit-btn" type="primary">
+                        {I18N.common.Confirm}
+                    </Button>
+                </FormSubmitButton>
+            </ModelFooter>
+        </Form>
+    );
+}
+
+export default withContext({{EntityName}}AddModal, [API_TYPES.{{EntityName}}Service]);

@@ -31,7 +31,7 @@ export default async (config: EntityConfig) => {
 
     const queryCode = makeQueryCode(config);
     const defaultPage = toLowcase(config.entity.name);
-    const queryPageFile = path.join(projectDir, "src/pages", config.path || defaultPage, "index.tsx");
+    const queryPageFile = path.join(projectDir, "src/pages", config.page || defaultPage, "index.tsx");
     if (!exists(queryPageFile)) {
         await codeToFile(queryPageFile, queryCode);
     }

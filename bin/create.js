@@ -14,6 +14,7 @@ const ora = require("ora");
 const Generate = require(path.resolve(__dirname, "../out/index.js")).default;
 const ApiGenerate = require(path.resolve(__dirname, "../out/web/api.js")).default;
 const QueryGenerate = require(path.resolve(__dirname, "../out/web/query.js")).default;
+const AddGenerate = require(path.resolve(__dirname, "../out/web/add.js")).default;
 // const Generate = require(path.resolve(__dirname, "../src/index.ts")).default;
 
 async function readConcig(file) {
@@ -41,6 +42,9 @@ module.exports = async (cmd) => {
             }
             if (cmd.query || cmd.all) {
                 await QueryGenerate(await readConcig(cmd.file));
+            }
+            if (cmd.add || cmd.all) {
+                await AddGenerate(await readConcig(cmd.file));
             }
         } else {
             if (!cmd.file && !cmd.dir) {

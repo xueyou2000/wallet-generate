@@ -9,7 +9,7 @@ export interface EntityConfig {
     /**
      * 生成页面路径
      */
-    path?: string;
+    page?: string;
     /**
      * 实体定义
      */
