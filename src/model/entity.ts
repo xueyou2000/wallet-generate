@@ -51,11 +51,18 @@ function createColumns(columns: EntityColumn[]) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)`;
         }
+        if (name === "VERSION") {
+            code += `
+    @Version`;
+        }
+
         if (current.isEnum) {
             code += `
     @Enumerated(EnumType.STRING)`;
         }
         code += `
+
+
     private ${type} ${current.name};`;
         return prev + "\n" + code;
     }, "");

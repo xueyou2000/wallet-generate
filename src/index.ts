@@ -25,7 +25,12 @@ export default async (config: EntityConfig) => {
             type: "Date",
             desc: "创建时间",
         },
-        ...config.entity.columns.filter((x) => x.name !== "id" && x.name !== "createTime"),
+        {
+            name: "version",
+            type: "Long",
+            desc: "乐观锁",
+        },
+        ...config.entity.columns.filter((x) => x.name !== "id" && x.name !== "createTime" && x.name !== "version"),
     ];
 
     // 输出目录
