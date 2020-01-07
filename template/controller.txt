@@ -21,7 +21,7 @@ import javax.annotation.Resource;
 import java.util.Optional;
 
 @RestController
-@OperationEntity(value = "{{EntityDesc}}", messageCode = "{{EntityName}}")
+@OperationEntity(value = "{{EntityDesc}}", messageCode = "{{EntityName}}", controllerName = "{{EntityDesc}}")
 public class {{EntityName}}Controller implements {{EntityName}}ServiceFace {
 
     @Resource

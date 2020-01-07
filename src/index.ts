@@ -107,7 +107,7 @@ export async function codeAppendFile(file: string, code: string) {
     console.log("Append File ", file);
     mkdirs(path.dirname(file));
 
-    if (!existsSync(file)) {
+    if (existsSync(file)) {
         // 存在则追加
         let content = await fs.readFile(file, { encoding: "utf-8" });
 

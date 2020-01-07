@@ -118,7 +118,7 @@ function codeAppendFile(file, code) {
                 case 0:
                     console.log("Append File ", file);
                     utils_1.mkdirs(path_1.default.dirname(file));
-                    if (!!fs_1.existsSync(file)) return [3 /*break*/, 2];
+                    if (!fs_1.existsSync(file)) return [3 /*break*/, 2];
                     return [4 /*yield*/, fs_1.promises.readFile(file, { encoding: "utf-8" })];
                 case 1:
                     content = _a.sent();
