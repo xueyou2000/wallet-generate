@@ -71,7 +71,7 @@ function makeQueryCode(config) {
  */
 function makeDictMapsCode(entity) {
     if (utils_1.hasDict(entity)) {
-        var code = "    // \u5B57\u5178\n    const dictMaps = useDicts({\n";
+        var code = "        // \u5B57\u5178\n    const dictMaps = useDicts({\n";
         code = entity.columns.reduce(function (prev, current) {
             if (!current.dict) {
                 return prev;

@@ -40,6 +40,9 @@ function createColumns(columns) {
         if (name === "ID") {
             code += "\n    @Id\n    @GeneratedValue(strategy = GenerationType.IDENTITY)";
         }
+        if (name === "VERSION") {
+            code += "\n    @Version";
+        }
         if (current.isEnum) {
             code += "\n    @Enumerated(EnumType.STRING)";
         }

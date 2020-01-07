@@ -1,11 +1,13 @@
 {
     "name": "wallet-generate",
-    "version": "1.6.2",
+    "version": "1.6.3",
     "description": "wallet代码生成工具",
     "main": "bin/cli.js",
     "bin": {
-        "build-code": "tsc",
         "wallet-generate": "./bin/cli.js"
+    },
+    "scripts": {
+        "build": "tsc"
     },
     "author": "XueYou",
     "license": "MIT",

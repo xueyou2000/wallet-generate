@@ -1,0 +1,63 @@
+{
+    "$schema": "https://raw.githubusercontent.com/xueyou2000/wallet-generate/master/schema.json",
+    "server-name": "mail",
+    "entity": {
+        "name": "MailRequest",
+        "description": "邮件记录",
+        "addControllerRemove": true,
+        "removeControllerRemove": true,
+        "updateControllerRemove": true,
+        "columns": [
+            {
+                "name": "mailCode",
+                "type": "String",
+                "desc": "发送人邮箱编号"
+            },
+            {
+                "name": "to",
+                "type": "String",
+                "desc": "收件人邮箱"
+            },
+            {
+                "name": "cc",
+                "type": "String",
+                "desc": "抄送邮箱",
+                "nullable": true
+            },
+            {
+                "name": "title",
+                "type": "String",
+                "desc": "邮件标题"
+            },
+            {
+                "name": "text",
+                "type": "String",
+                "desc": "邮件正文"
+            },
+            {
+                "name": "attach",
+                "type": "String",
+                "desc": "附件名称",
+                "nullable": true
+            },
+            {
+                "name": "status",
+                "type": "com.yl.wallet.mail.enums.MailStatus",
+                "desc": "发送状态",
+                "isEnum": true
+            },
+            {
+                "name": "resCode",
+                "type": "String",
+                "desc": "响应码",
+                "nullable": true
+            },
+            {
+                "name": "resMsg",
+                "type": "String",
+                "desc": "响应信息",
+                "nullable": true
+            }
+        ]
+    }
+}

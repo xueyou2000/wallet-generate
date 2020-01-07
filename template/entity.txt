@@ -1,5 +1,6 @@
 package com.yl.wallet.{{ServerName}}.entity;
 
+import com.yl.wallet.common.annotation.ExcelField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -5,11 +5,11 @@ const glob = require("glob");
 const ora = require("ora");
 
 // 确保能 require(*.ts)文件
-// require("ts-node").register({
-//     compilerOptions: {
-//         module: "commonjs",
-//     },
-// });
+require("ts-node").register({
+    compilerOptions: {
+        module: "commonjs",
+    },
+});
 
 const Generate = require(path.resolve(__dirname, "../out/index.js")).default;
 const ApiGenerate = require(path.resolve(__dirname, "../out/web/api.js")).default;

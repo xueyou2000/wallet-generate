@@ -78,8 +78,9 @@ export default async (config: EntityConfig) => {
 
     // 创建国际化资源输出文件
     const messageDir = path.join(outDir, "message");
-    await codeToFile(path.join(messageDir, `./message_en_US.properties`), en_message);
-    await codeToFile(path.join(messageDir, `./message_zh_CN.properties`), zh_message);
+    // 存在则追加,不存在则创建
+    await codeAppendFile(path.join(messageDir, `./message_en_US.properties`), en_message);
+    await codeAppendFile(path.join(messageDir, `./message_zh_CN.properties`), zh_message);
 
     console.log(chalk.cyan("----> 开始完毕"));
 
@@ -95,4 +96,28 @@ export function codeToFile(file: string, code: string) {
     console.log("Create File ", file);
     mkdirs(path.dirname(file));
     return fs.writeFile(file, code, { encoding: "utf-8" });
+}
+
+/**
+ * 追加文件
+ * @param file
+ * @param code
+ */
+export async function codeAppendFile(file: string, code: string) {
+    console.log("Append File ", file);
+    const stat = await fs.stat(file);
+    if (stat.isFile()) {
+        // 存在则追加
+        let content = await fs.readFile(file, { encoding: "utf-8" });
+
+        if (content.indexOf(code) !== -1) {
+            // 存在则不追加
+            return;
+        }
+
+        return codeToFile(file, content + "\n" + code);
+    } else {
+        // 不存在则创建
+        return codeToFile(file, code);
+    }
 }

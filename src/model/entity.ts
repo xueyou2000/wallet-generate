@@ -61,8 +61,6 @@ function createColumns(columns: EntityColumn[]) {
     @Enumerated(EnumType.STRING)`;
         }
         code += `
-
-
     private ${type} ${current.name};`;
         return prev + "\n" + code;
     }, "");

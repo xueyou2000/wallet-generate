@@ -29,8 +29,13 @@ exports.default = (function (config) { return tslib_1.__awaiter(void 0, void 0, 
                         name: "createTime",
                         type: "Date",
                         desc: "创建时间",
+                    },
+                    {
+                        name: "version",
+                        type: "Long",
+                        desc: "乐观锁",
                     }
-                ], config.entity.columns.filter(function (x) { return x.name !== "id" && x.name !== "createTime"; }));
+                ], config.entity.columns.filter(function (x) { return x.name !== "id" && x.name !== "createTime" && x.name !== "version"; }));
                 outDir = path_1.default.resolve(fs_1.realpathSync(process.cwd()), "./dist");
                 _a = config.entity, name = _a.name, description = _a.description;
                 console.log(chalk_1.default.white("============= " + name + "(" + description + ") ============= "));
@@ -76,10 +81,12 @@ exports.default = (function (config) { return tslib_1.__awaiter(void 0, void 0, 
             case 7:
                 _b.sent();
                 messageDir = path_1.default.join(outDir, "message");
-                return [4 /*yield*/, codeToFile(path_1.default.join(messageDir, "./message_en_US.properties"), en_message)];
+                // 存在则追加,不存在则创建
+                return [4 /*yield*/, codeAppendFile(path_1.default.join(messageDir, "./message_en_US.properties"), en_message)];
             case 8:
+                // 存在则追加,不存在则创建
                 _b.sent();
-                return [4 /*yield*/, codeToFile(path_1.default.join(messageDir, "./message_zh_CN.properties"), zh_message)];
+                return [4 /*yield*/, codeAppendFile(path_1.default.join(messageDir, "./message_zh_CN.properties"), zh_message)];
             case 9:
                 _b.sent();
                 console.log(chalk_1.default.cyan("----> 开始完毕"));
@@ -98,4 +105,36 @@ function codeToFile(file, code) {
     return fs_1.promises.writeFile(file, code, { encoding: "utf-8" });
 }
 exports.codeToFile = codeToFile;
+/**
+ * 追加文件
+ * @param file
+ * @param code
+ */
+function codeAppendFile(file, code) {
+    return tslib_1.__awaiter(this, void 0, void 0, function () {
+        var stat, content;
+        return tslib_1.__generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    console.log("Append File ", file);
+                    return [4 /*yield*/, fs_1.promises.stat(file)];
+                case 1:
+                    stat = _a.sent();
+                    if (!stat.isFile()) return [3 /*break*/, 3];
+                    return [4 /*yield*/, fs_1.promises.readFile(file, { encoding: "utf-8" })];
+                case 2:
+                    content = _a.sent();
+                    if (content.indexOf(code) !== -1) {
+                        // 存在则不追加
+                        return [2 /*return*/];
+                    }
+                    return [2 /*return*/, codeToFile(file, content + "\n" + code)];
+                case 3: 
+                // 不存在则创建
+                return [2 /*return*/, codeToFile(file, code)];
+            }
+        });
+    });
+}
+exports.codeAppendFile = codeAppendFile;
 //# sourceMappingURL=index.js.map
