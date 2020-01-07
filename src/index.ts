@@ -1,4 +1,4 @@
-import { promises as fs, realpathSync } from "fs";
+import { promises as fs, realpathSync, existsSync } from "fs";
 import path from "path";
 import chalk from "chalk";
 import { EntityConfig } from "./types";
@@ -105,8 +105,9 @@ export function codeToFile(file: string, code: string) {
  */
 export async function codeAppendFile(file: string, code: string) {
     console.log("Append File ", file);
-    const stat = await fs.stat(file);
-    if (stat.isFile()) {
+    mkdirs(path.dirname(file));
+
+    if (!existsSync(file)) {
         // 存在则追加
         let content = await fs.readFile(file, { encoding: "utf-8" });
 

@@ -112,24 +112,22 @@ exports.codeToFile = codeToFile;
  */
 function codeAppendFile(file, code) {
     return tslib_1.__awaiter(this, void 0, void 0, function () {
-        var stat, content;
+        var content;
         return tslib_1.__generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     console.log("Append File ", file);
-                    return [4 /*yield*/, fs_1.promises.stat(file)];
-                case 1:
-                    stat = _a.sent();
-                    if (!stat.isFile()) return [3 /*break*/, 3];
+                    utils_1.mkdirs(path_1.default.dirname(file));
+                    if (!!fs_1.existsSync(file)) return [3 /*break*/, 2];
                     return [4 /*yield*/, fs_1.promises.readFile(file, { encoding: "utf-8" })];
-                case 2:
+                case 1:
                     content = _a.sent();
                     if (content.indexOf(code) !== -1) {
                         // 存在则不追加
                         return [2 /*return*/];
                     }
                     return [2 /*return*/, codeToFile(file, content + "\n" + code)];
-                case 3: 
+                case 2: 
                 // 不存在则创建
                 return [2 /*return*/, codeToFile(file, code)];
             }
