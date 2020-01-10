@@ -40,10 +40,13 @@ function createColumns(columns: EntityColumn[]) {
     /**
      * ${current.desc}
      * ${current.summary || ""}
-     */
-    @Column(name = "${name}", length = ${current.length || 60}, nullable = ${current.nullable || false})
+     */${
+         name === "VERSION"
+             ? ""
+             : `\n    @Column(name = "${name}", length = ${current.length || 60}, nullable = ${current.nullable || false})
     @ApiModelProperty(value = "${current.desc}", dataType = "${apiType}")
-    @ExcelField(name = "${current.name}", column = ${index})`;
+    @ExcelField(name = "${current.name}", column = ${index})`
+     }`;
 
         // 特殊注解
         if (name === "ID") {
@@ -53,7 +56,8 @@ function createColumns(columns: EntityColumn[]) {
         }
         if (name === "VERSION") {
             code += `
-    @Version`;
+    @Version
+    @JSONField(serialize=false)`;
         }
 
         if (current.isEnum) {

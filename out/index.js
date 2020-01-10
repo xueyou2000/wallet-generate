@@ -32,8 +32,9 @@ exports.default = (function (config) { return tslib_1.__awaiter(void 0, void 0, 
                     },
                     {
                         name: "version",
-                        type: "Long",
+                        type: "int",
                         desc: "乐观锁",
+                        nullable: true,
                     }
                 ], config.entity.columns.filter(function (x) { return x.name !== "id" && x.name !== "createTime" && x.name !== "version"; }));
                 outDir = path_1.default.resolve(fs_1.realpathSync(process.cwd()), "./dist");

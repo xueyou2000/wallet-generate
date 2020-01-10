@@ -35,13 +35,15 @@ function createColumns(columns) {
         var name = utils_1.humpToUperCase(current.name);
         var type = parsType(current);
         var apiType = current.isEnum ? "string" : type;
-        var code = "\n    /**\n     * " + current.desc + "\n     * " + (current.summary || "") + "\n     */\n    @Column(name = \"" + name + "\", length = " + (current.length || 60) + ", nullable = " + (current.nullable || false) + ")\n    @ApiModelProperty(value = \"" + current.desc + "\", dataType = \"" + apiType + "\")\n    @ExcelField(name = \"" + current.name + "\", column = " + index + ")";
+        var code = "\n    /**\n     * " + current.desc + "\n     * " + (current.summary || "") + "\n     */" + (name === "VERSION"
+            ? ""
+            : "\n    @Column(name = \"" + name + "\", length = " + (current.length || 60) + ", nullable = " + (current.nullable || false) + ")\n    @ApiModelProperty(value = \"" + current.desc + "\", dataType = \"" + apiType + "\")\n    @ExcelField(name = \"" + current.name + "\", column = " + index + ")");
         // 特殊注解
         if (name === "ID") {
             code += "\n    @Id\n    @GeneratedValue(strategy = GenerationType.IDENTITY)";
         }
         if (name === "VERSION") {
-            code += "\n    @Version";
+            code += "\n    @Version\n    @JSONField(serialize=false)";
         }
         if (current.isEnum) {
             code += "\n    @Enumerated(EnumType.STRING)";

@@ -27,8 +27,9 @@ export default async (config: EntityConfig) => {
         },
         {
             name: "version",
-            type: "Long",
+            type: "int",
             desc: "乐观锁",
+            nullable: true,
         },
         ...config.entity.columns.filter((x) => x.name !== "id" && x.name !== "createTime" && x.name !== "version"),
     ];
